@@ -27,7 +27,6 @@ public class Company {
         Company company = (Company) ObjectProcessingJSON.load(pathToJsonFile, this);
         this.shops = company.getShops();
         this.moneyBalance = company.getMoneyBalance();
-        System.out.println(this);
     }
 
     // Возвращаем Shop по индексу
@@ -94,7 +93,7 @@ public class Company {
 
     @Override
     public String toString() {
-        String string = "Money balance: " + getMoneyBalance() + "\n";
+        String string = "Money balance: " + this.getMoneyBalance() + "\n";
         for (Shop shop: shops) {
             string = string.concat(shop.toString() + "-------------------------------------" + "\n");
         }
@@ -105,10 +104,17 @@ public class Company {
         return shops;
     }
 
-    // Округляем баланс Company
+    public void setShops(List<Shop> shops) {
+        this.shops = shops;
+    }
+
     public double getMoneyBalance() {
         moneyBalance = getCompanyBalance();
         return moneyBalance;
+    }
+
+    public void setMoneyBalance(double moneyBalance) {
+        this.moneyBalance = moneyBalance;
     }
 
 }
