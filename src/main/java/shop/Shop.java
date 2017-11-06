@@ -7,7 +7,6 @@ import fruit.TypeOfFruit;
 import jsonFiles.ObjectProcessingJSON;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
@@ -34,9 +33,9 @@ public class Shop {
 
     // Загружаем новый Shop из сохраненной версии
     public void load(String pathToJsonFile) throws FileNotFoundException {
-       Shop shop = (Shop) ObjectProcessingJSON.load(pathToJsonFile, this);
-       this.fruitWarehouse = shop.getFruitWarehouse();
-       this.moneyBalance = shop.getMoneyBalance();
+        Shop shop = (Shop) ObjectProcessingJSON.load(pathToJsonFile, this);
+        this.fruitWarehouse = shop.getFruitWarehouse();
+        this.moneyBalance = shop.getMoneyBalance();
     }
 
     // Возвращаем продукты которые ипортятся к заданой дате
@@ -99,11 +98,7 @@ public class Shop {
 
     // Сохраняем заказ в файл
     public void saveOrder(Order order, String pathToJsonFile) throws IOException {
-        FileWriter writer = new FileWriter(pathToJsonFile);
-        String json = JSON.toJSONString(order);
-        writer.write(json);
-        writer.flush();
-        writer.close();
+       ObjectProcessingJSON.save(pathToJsonFile, order);
     }
 
     // Продаем продукты по заданному дню
@@ -145,6 +140,10 @@ public class Shop {
 
     public List<Fruit> getFruitWarehouse() {
         return fruitWarehouse;
+    }
+
+    public void setMoneyBalance(double moneyBalance) {
+        this.moneyBalance = moneyBalance;
     }
 
     // Округляем баланс Shop
